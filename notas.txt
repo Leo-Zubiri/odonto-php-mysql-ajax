@@ -1,0 +1,31 @@
+                        <!-- <td>
+                            <a href="ms_delete.php?id=<?php //echo $row['idProveedor']; ?>" action=del name=delete>
+                                <span class="icon-circle-small icon-box-xs text-danger ml-4 bg-danger-light"><i class="fa fa-fw fa-arrow-down"></i>
+                            </a>  
+                            <a href="ms_update.php?id=<?php echo $row['idProveedor']; ?>" action=edit name=edit>
+                                <span class="icon-circle-small icon-box-xs text-success ml-4 bg-success-light"><i class="fa fa-fw fa-arrow-up"></i>
+                            </a>
+                        </td> -->
+
+
+
+                <tbody>
+                    <?php           
+                        $query = "SELECT * FROM Tratamientos";                        
+                        $result = mysqli_query($conn, $query);
+                        if(!$result) {
+                            echo "Fallido!";
+                            die('Query Failed'. mysqli_error($connection));                            
+                        }                                                
+                        while ($row = mysqli_fetch_assoc($result)){  
+                    ?>  
+                    <tr>
+                        <td><?php echo $row["IdTratamiento"]; ?></td>
+                        <td><?php echo $row["Tratamiento"]; ?></td>
+                        <td><?php echo $row["Costo"]; ?></td>
+                    </tr>
+                    <?php
+                        }
+                        mysqli_free_result($result);                        
+                    ?>
+                </tbody>
