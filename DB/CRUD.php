@@ -118,6 +118,213 @@
 
     }
 
+    function CreateMedico($ced,$nom,$ape,$tel,$spec){
+
+        try {
+            //Creamos la conexión PDO por medio de una instancia de su clase
+            $cnn = &$GLOBALS['cnn'];
+            conectar();
+        
+            //Preparamos la consulta sql
+            $respuesta = $cnn->prepare("CALL SP_CreateMedicoZ(?,?,?,?,?);");
+           
+            //Ejecutamos la consulta
+            $respuesta->execute([$ced,$nom,$ape,$tel,$spec]);
+            $results = $respuesta -> fetchAll(PDO::FETCH_OBJ); 
+            desconectar();
+            return $results;
+        
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            return null;
+        }
+
+    }
+
+    function UpdateMedico($id,$ced,$nom,$ape,$tel,$spec){
+
+        try {
+            //Creamos la conexión PDO por medio de una instancia de su clase
+            $cnn = &$GLOBALS['cnn'];
+            conectar();
+        
+            //Preparamos la consulta sql
+            $respuesta = $cnn->prepare("CALL SP_UpdateMedicoZ(?,?,?,?,?,?);");
+           
+            //Ejecutamos la consulta
+            $respuesta->execute([$id,$ced,$nom,$ape,$tel,$spec]);
+            $results = $respuesta -> fetchAll(PDO::FETCH_OBJ); 
+            desconectar();
+            return $results;
+        
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            return null;
+        }
+
+    }
+
+    
+    // ----------------------------------------------------------
+    // ------------------------ PACIENTES -----------------------
+    // ----------------------------------------------------------
+
+
+    function getPacientes(){
+        try {
+            //Creamos la conexión PDO por medio de una instancia de su clase
+            $cnn = &$GLOBALS['cnn'];
+            conectar();
+        
+            //Preparamos la consulta sql
+            $respuesta = $cnn->prepare("SELECT * FROM paciente2");
+           
+            //Ejecutamos la consulta
+            $respuesta->execute();
+            $results = $respuesta -> fetchAll(PDO::FETCH_OBJ); 
+            desconectar();
+            return $results;
+        
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            return null;
+        }
+    }
+
+   
+
+    function DeletePacienteByID($id){
+
+        try {
+            //Creamos la conexión PDO por medio de una instancia de su clase
+            $cnn = &$GLOBALS['cnn'];
+            conectar();
+            //Preparamos la consulta sql
+            $respuesta = $cnn->prepare("CALL SP_DeletePaciente(?);");
+           
+            //Ejecutamos la consulta
+            $respuesta->execute([$id]);
+            $results = $respuesta -> fetchAll(PDO::FETCH_OBJ); 
+            desconectar();
+            return $results;
+        
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            return null;
+        }
+
+    }
+
+    function CreatePaciente($nombre,$ape,$calle,$numero,$colonia,$ciudad,$cp,$fecha,$sex,$tel){
+
+        try {
+            //Creamos la conexión PDO por medio de una instancia de su clase
+            $cnn = &$GLOBALS['cnn'];
+            conectar();
+            $estado = "";
+            //Preparamos la consulta sql
+            $respuesta = $cnn->prepare("CALL SP_CreatePacienteZ(?,?,?,?,?,?,?,?,?,?,?);");
+            $fecha="";
+            //Ejecutamos la consulta
+            $respuesta->execute([$nombre,$ape,$calle,$numero,$colonia,$ciudad,$estado,$cp,$fecha,$sex,$tel]);
+            $results = $respuesta -> fetchAll(PDO::FETCH_OBJ); 
+            desconectar();
+            return $results;
+        
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            return null;
+        }
+
+    }
+
+    function UpdatePaciente($id,$nombre,$ape,$calle,$numero,$colonia,$ciudad,$cp,$fecha,$sex,$tel){ 
+
+        try {
+            //Creamos la conexión PDO por medio de una instancia de su clase
+            $cnn = &$GLOBALS['cnn'];
+            conectar();
+        
+            //Preparamos la consulta sql
+            $respuesta = $cnn->prepare("CALL SP_UpdatePaciente(?,?,?,?,?,?,?,?,?,?,?);");
+            //$fecha="";
+            //Ejecutamos la consulta
+            $respuesta->execute([$id,$nombre,$ape,$calle,$numero,$colonia,$ciudad,$cp,$fecha,$sex,$tel]);
+            $results = $respuesta -> fetchAll(PDO::FETCH_OBJ); 
+            desconectar();
+            return $results;
+        
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            return null;
+        }
+
+    }
+
+    function getPacienteByID($id){
+        try {
+            //Creamos la conexión PDO por medio de una instancia de su clase
+            $cnn = &$GLOBALS['cnn'];
+            conectar();
+        
+            //Preparamos la consulta sql
+            $respuesta = $cnn->prepare("SELECT * FROM paciente2 WHERE NoAsig = ?");
+           
+            //Ejecutamos la consulta
+            $respuesta->execute([$id]);
+            $results = $respuesta -> fetchAll(PDO::FETCH_OBJ); 
+            desconectar();
+            return $results;
+        
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            return null;
+        }
+    }
+
+    function getCitas(){
+        try {
+            //Creamos la conexión PDO por medio de una instancia de su clase
+            $cnn = &$GLOBALS['cnn'];
+            conectar();
+        
+            //Preparamos la consulta sql
+            $respuesta = $cnn->prepare("SELECT * FROM citas2");
+           
+            //Ejecutamos la consulta
+            $respuesta->execute();
+            $results = $respuesta -> fetchAll(PDO::FETCH_OBJ); 
+            desconectar();
+            return $results;
+        
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            return null;
+        }
+    }
+
+    function getCitasByID($id){
+        try {
+            //Creamos la conexión PDO por medio de una instancia de su clase
+            $cnn = &$GLOBALS['cnn'];
+            conectar();
+        
+            //Preparamos la consulta sql
+            $respuesta = $cnn->prepare("SELECT * FROM citas2 WHERE idCita = ?");
+           
+            //Ejecutamos la consulta
+            $respuesta->execute([$id]);
+            $results = $respuesta -> fetchAll(PDO::FETCH_OBJ); 
+            desconectar();
+            return $results;
+        
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            return null;
+        }
+    }
+    
+
 
 
     // function getData($opcDB){
